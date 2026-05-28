@@ -184,8 +184,8 @@ class PettyCashClosingController extends Controller
 
         // Fetch Cost Centers
         $costCenters = DB::connection('idempiere')->select("
-            SELECT c_costcenter_id AS id, name AS text
-            FROM c_costcenter
+            SELECT tcf_cost_center_id AS id, name AS text
+            FROM tcf_cost_center
             WHERE isactive = 'Y' AND ad_client_id = ?
             ORDER BY name
         ", [$clientId]);
@@ -329,7 +329,7 @@ class PettyCashClosingController extends Controller
         }
 
         if (!empty($validated['cost_center_id'])) {
-            $payload['C_CostCenter_ID'] = (int) $validated['cost_center_id'];
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['cost_center_id'];
         }
 
         Log::info('Petty Cash Closing Create Payload:', $payload);
@@ -396,7 +396,7 @@ class PettyCashClosingController extends Controller
         if (isset($validated['description']))
             $payload['Description'] = $validated['description'];
         if (!empty($validated['cost_center_id']))
-            $payload['C_CostCenter_ID'] = (int) $validated['cost_center_id'];
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['cost_center_id'];
 
         try {
             $response = $this->idempiereService->put("models/tcf_pettycash_closing/{$id}", $payload);
@@ -919,7 +919,7 @@ class PettyCashClosingController extends Controller
             return response()->json([
                 'c_bpartner_id' => $request->c_bpartner_id,
                 'ad_user_id' => $request->ad_user_id,
-                'c_costcenter_id' => $request->c_costcenter_id,
+                'tcf_cost_center_id' => $request->tcf_cost_center_id,
             ]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

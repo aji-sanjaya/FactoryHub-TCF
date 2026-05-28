@@ -28,7 +28,7 @@ class DpkPettycashClosing extends Model
         'processing',
         'posted',
         'totallines',
-        'c_costcenter_id',
+        'tcf_cost_center_id',
         'tcf_pettycash_request_id',
         'created',
         'createdby',

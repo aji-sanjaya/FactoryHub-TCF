@@ -116,8 +116,8 @@ class RequisitionController extends Controller
 
             // Fetch Cost Centers
             $costCenters = \Illuminate\Support\Facades\DB::connection('idempiere')->select("
-                SELECT c_costcenter_id AS id, name AS text
-                FROM c_costcenter
+                SELECT tcf_cost_center_id AS id, name AS text
+                FROM tcf_cost_center
                 WHERE isactive = 'Y' AND ad_client_id = ?
                 ORDER BY name
             ", [$clientId]);
@@ -435,7 +435,7 @@ class RequisitionController extends Controller
             // Custom Fields
             'TCF_AD_User_Checked_ID' => !empty($validated['tcf_ad_user_checked_id']) ? (int) $validated['tcf_ad_user_checked_id'] : null,
             'TCF_AD_User_Approved_ID' => !empty($validated['tcf_ad_user_approved_id']) ? (int) $validated['tcf_ad_user_approved_id'] : null,
-            'C_CostCenter_ID' => !empty($validated['cost_center_id']) ? (int) $validated['cost_center_id'] : null,
+            'TCF_Cost_Center_ID' => !empty($validated['cost_center_id']) ? (int) $validated['cost_center_id'] : null,
             'IsActive' => true,
         ];
 
@@ -506,7 +506,7 @@ class RequisitionController extends Controller
         if (!empty($validated['tcf_ad_user_approved_id']))
             $payload['TCF_AD_User_Approved_ID'] = (int) $validated['tcf_ad_user_approved_id'];
         if (!empty($validated['cost_center_id']))
-            $payload['C_CostCenter_ID'] = (int) $validated['cost_center_id'];
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['cost_center_id'];
 
         if (!empty($validated['date_required'])) {
             $payload['DateRequired'] = \Carbon\Carbon::createFromFormat('m-d-Y', $validated['date_required'])->format('Y-m-d');

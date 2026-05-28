@@ -162,8 +162,8 @@ class PettyCashRequestController extends Controller
 
         // Fetch Cost Centers
         $costCenters = DB::connection('idempiere')->select("
-            SELECT c_costcenter_id AS id, name AS text
-            FROM c_costcenter
+            SELECT tcf_cost_center_id AS id, name AS text
+            FROM tcf_cost_center
             WHERE isactive = 'Y' AND ad_client_id = ?
             ORDER BY name
         ", [$clientId]);
@@ -300,7 +300,7 @@ class PettyCashRequestController extends Controller
         }
 
         if (!empty($validated['cost_center_id'])) {
-            $payload['C_CostCenter_ID'] = (int) $validated['cost_center_id'];
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['cost_center_id'];
         }
 
         Log::info('Petty Cash Request Create Payload:', $payload);
@@ -370,7 +370,7 @@ class PettyCashRequestController extends Controller
         // if (isset($validated['value']))
         //     $payload['Value'] = $validated['value'];
         if (!empty($validated['cost_center_id']))
-            $payload['C_CostCenter_ID'] = (int) $validated['cost_center_id'];
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['cost_center_id'];
 
         try {
             $response = $this->idempiereService->put("models/tcf_pettycash_request/{$id}", $payload);

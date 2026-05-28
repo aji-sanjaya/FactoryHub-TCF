@@ -353,14 +353,14 @@
 
         <script>
             function initScripts() {
-                $('#c_bpartner_id, #org_id, #doc_type_id, #c_currency_id, #c_paymentterm_id, #c_project_id, #c_tax_id, #ad_user_id, #tcf_ad_user_approved_id, #tcf_ad_user_verification_id, #c_department_id, #c_costcenter_id').select2({
+                $('#c_bpartner_id, #org_id, #doc_type_id, #c_currency_id, #c_paymentterm_id, #c_project_id, #c_tax_id, #ad_user_id, #tcf_ad_user_approved_id, #tcf_ad_user_verification_id, #c_department_id, #tcf_cost_center_id').select2({
                     width: '100%', placeholder: '- Select -'
                 });
                 $('#c_project_id').select2({ width: '100%', placeholder: '- None -', allowClear: true });
                 $('#tcf_ad_user_approved_id').select2({ width: '100%', placeholder: '- Select User -', allowClear: true });
                 $('#tcf_ad_user_verification_id').select2({ width: '100%', placeholder: '- Select User -', allowClear: true });
                 $('#c_department_id').select2({ width: '100%', placeholder: '- Select Department -', allowClear: true });
-                $('#c_costcenter_id').select2({ width: '100%', placeholder: '- Select Cost Center -', allowClear: true });
+                $('#tcf_cost_center_id').select2({ width: '100%', placeholder: '- Select Cost Center -', allowClear: true });
                 $('#ad_user_id').select2({ width: '100%', placeholder: '- Select Contact -', allowClear: false });
             }
 
@@ -616,7 +616,7 @@
                     tcf_ad_user_approved_id: $('#tcf_ad_user_approved_id').val() || null,
                     tcf_ad_user_verification_id: $('#tcf_ad_user_verification_id').val() || null,
                     c_department_id: $('#c_department_id').val() || null,
-                    c_costcenter_id: $('#c_costcenter_id').val() || null,
+                    tcf_cost_center_id: $('#tcf_cost_center_id').val() || null,
                     _token: '{{ csrf_token() }}'
                 };
 

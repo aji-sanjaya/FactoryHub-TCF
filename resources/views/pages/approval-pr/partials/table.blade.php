@@ -29,7 +29,8 @@
             </thead>
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                 @forelse($requisitions as $req)
-                    <tr class="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors {{ isset($req->is_my_approval) && $req->is_my_approval > 0 ? 'bg-yellow-50 dark:bg-yellow-900/10' : '' }}">
+                    <tr
+                        class="hover:bg-gray-50 dark:hover:bg-white/5 transition-colors {{ isset($req->is_my_approval) && $req->is_my_approval > 0 ? 'bg-yellow-50 dark:bg-yellow-900/10' : '' }}">
                         <td class="px-6 py-2 whitespace-nowrap text-xs">
                             <a href="{{ route('approval-pr.show', \Illuminate\Support\Facades\Crypt::encryptString($req->m_requisition_id)) }}"
                                 class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-brand-100 dark:bg-brand-500/10 dark:text-brand-400 dark:hover:bg-brand-500/20 transition-colors">
@@ -50,7 +51,7 @@
                             {{ $req->bpartner_name ?? $req->c_bpartner_id ?? '-' }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                            {{ $req->cost_center_name ?? $req->c_costcenter_id ?? '-' }}
+                            {{ $req->cost_center_name ?? $req->tcf_cost_center_id ?? '-' }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                             {{ date('d M Y', strtotime($req->datedoc)) }}

@@ -177,7 +177,7 @@
                             <option value="">- Select Cost Center -</option>
                             @if(isset($costCenters))
                                 @foreach($costCenters as $cc)
-                                    <option value="{{ $cc->id }}" {{ (isset($requisition) && $requisition->c_costcenter_id == $cc->id) ? 'selected' : '' }}>
+                                    <option value="{{ $cc->id }}" {{ (isset($requisition) && $requisition->tcf_cost_center_id == $cc->id) ? 'selected' : '' }}>
                                         {{ $cc->text }}
                                     </option>
                                 @endforeach

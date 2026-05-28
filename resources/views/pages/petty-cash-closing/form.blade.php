@@ -378,14 +378,14 @@
                 console.log('Select2 plugin exists:', typeof $.fn.select2 !== 'undefined');
                 
                 // Check if elements exist
-                var elements = ['#org_id', '#ad_user_id', '#c_currency_id', '#c_doctype_id', '#c_costcenter_id'];
+                var elements = ['#org_id', '#ad_user_id', '#c_currency_id', '#c_doctype_id', '#tcf_cost_center_id'];
                 elements.forEach(function(selector) {
                     var el = $(selector);
                     console.log('Element ' + selector + ': exists=' + (el.length > 0) + ', is visible=' + el.is(':visible'));
                 });
                 
                 // Initialize Select2 for all dropdowns
-                $('#org_id, #ad_user_id, #c_currency_id, #c_doctype_id, #c_costcenter_id, #tcf_pettycash_request_id').select2({
+                $('#org_id, #ad_user_id, #c_currency_id, #c_doctype_id, #tcf_cost_center_id, #tcf_pettycash_request_id').select2({
                     width: '100%',
                     placeholder: '- Select -'
                 });
@@ -417,12 +417,12 @@
                             if(data.ad_user_id) {
                                 $('#ad_user_id').val(data.ad_user_id).trigger('change');
                             }
-                            if(data.c_costcenter_id) {
-                                $('#c_costcenter_id').val(data.c_costcenter_id).trigger('change');
+                            if(data.tcf_cost_center_id) {
+                                $('#tcf_cost_center_id').val(data.tcf_cost_center_id).trigger('change');
                             }
 
                             // Lock the fields via select2 disabled property & Tailwind classes
-                            ['#c_bpartner_id', '#ad_user_id', '#c_costcenter_id'].forEach(function(selector) {
+                            ['#c_bpartner_id', '#ad_user_id', '#tcf_cost_center_id'].forEach(function(selector) {
                                 $(selector).prop('disabled', true);
                                 $(selector).addClass('bg-gray-50 cursor-not-allowed');
                             });
@@ -525,7 +525,7 @@
                 var currencyId = $('#c_currency_id').val();
                 var docTypeId = $('#c_doctype_id').val();
                 var dpkPettycashRequestId = $('#tcf_pettycash_request_id').val();
-                var costCenterId = $('#c_costcenter_id').val();
+                var costCenterId = $('#tcf_cost_center_id').val();
 
                 var description = document.getElementById('description') ? document.getElementById('description').value : '';
                 var name = document.getElementById('name') ? document.getElementById('name').value : '';

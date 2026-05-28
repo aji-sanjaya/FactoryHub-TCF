@@ -316,7 +316,7 @@
             if (supplier) params.append('c_bpartner_id', supplier);
 
             const costCenter = document.getElementById('costCenterFilter').value;
-            if (costCenter) params.append('c_costcenter_id', costCenter);
+            if (costCenter) params.append('tcf_cost_center_id', costCenter);
 
             const search = document.getElementById('searchInput').value;
             if (search) params.append('search', search);

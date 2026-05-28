@@ -41,15 +41,15 @@ class ApprovalPrController extends Controller
         }
 
         $selectedCostCenter = null;
-        if ($request->has('c_costcenter_id') && $request->c_costcenter_id) {
-            $selectedCostCenter = \Illuminate\Support\Facades\DB::connection('idempiere')->table('c_costcenter')
-                ->where('c_costcenter_id', $request->c_costcenter_id)
-                ->select('c_costcenter_id as id', 'name as text')
+        if ($request->has('tcf_cost_center_id') && $request->tcf_cost_center_id) {
+            $selectedCostCenter = \Illuminate\Support\Facades\DB::connection('idempiere')->table('tcf_cost_center')
+                ->where('tcf_cost_center_id', $request->tcf_cost_center_id)
+                ->select('tcf_cost_center_id as id', 'name as text')
                 ->first();
         }
 
         // Query with Joins
-        // Note: c_bpartner_id is usually on Lines, not Header. c_costcenter_id is assumed on Header.
+        // Note: c_bpartner_id is usually on Lines, not Header. tcf_cost_center_id is assumed on Header.
         $query = MRequisition::query()
             ->select(
                 'm_requisition.*',
@@ -76,7 +76,7 @@ class ApprovalPrController extends Controller
                 ->selectRaw('COUNT(*)')
         ]);
 
-        $query->leftJoin('c_costcenter as cc', 'cc.c_costcenter_id', '=', 'm_requisition.c_costcenter_id')
+        $query->leftJoin('tcf_cost_center as cc', 'cc.tcf_cost_center_id', '=', 'm_requisition.tcf_cost_center_id')
             ->whereNotIn('m_requisition.docstatus', $statusConfig['exclude_from_list']);
 
         if ($clientId) {
@@ -141,8 +141,8 @@ class ApprovalPrController extends Controller
                     ->where('rlfilter.c_bpartner_id', $request->c_bpartner_id);
             });
         }
-        if ($request->has('c_costcenter_id') && $request->c_costcenter_id) {
-            $query->where('m_requisition.c_costcenter_id', $request->c_costcenter_id);
+        if ($request->has('tcf_cost_center_id') && $request->tcf_cost_center_id) {
+            $query->where('m_requisition.tcf_cost_center_id', $request->tcf_cost_center_id);
         }
 
         $requisitions = $query->orderBy('m_requisition.datedoc', 'desc')->paginate($approvalConfig['limits']['list_per_page']);
@@ -196,10 +196,10 @@ class ApprovalPrController extends Controller
         $page = $request->page ?? 1;
         $perPage = $approvalConfig['limits']['select2_per_page'];
 
-        $query = \Illuminate\Support\Facades\DB::connection('idempiere')->table('c_costcenter')
+        $query = \Illuminate\Support\Facades\DB::connection('idempiere')->table('tcf_cost_center')
             ->where('isactive', 'Y')
             ->where('ad_client_id', $clientId)
-            ->select('c_costcenter_id as id', 'name as text');
+            ->select('tcf_cost_center_id as id', 'name as text');
 
         if ($search) {
             $query->where('name', 'ilike', "%{$search}%");

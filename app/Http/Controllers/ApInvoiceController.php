@@ -209,8 +209,8 @@ class ApInvoiceController extends Controller
 
         // Cost Centers
         $costCenters = DB::connection('idempiere')->select("
-            SELECT c_costcenter_id AS id, name AS text
-            FROM c_costcenter
+            SELECT tcf_cost_center_id AS id, name AS text
+            FROM tcf_cost_center
             WHERE isactive = 'Y' AND ad_client_id = ?
             ORDER BY name
         ", [$clientId]);
@@ -441,7 +441,7 @@ class ApInvoiceController extends Controller
             'tcf_ad_user_approved_id' => 'nullable|integer',
             'tcf_ad_user_verification_id' => 'nullable|integer',
             'c_department_id' => 'nullable|integer',
-            'c_costcenter_id' => 'nullable|integer',
+            'tcf_cost_center_id' => 'nullable|integer',
         ]);
 
         $userData = Session::get('user_data');
@@ -539,8 +539,8 @@ class ApInvoiceController extends Controller
             $payload['C_Department_ID'] = (int) $validated['c_department_id'];
         }
 
-        if (!empty($validated['c_costcenter_id'])) {
-            $payload['C_CostCenter_ID'] = (int) $validated['c_costcenter_id'];
+        if (!empty($validated['tcf_cost_center_id'])) {
+            $payload['TCF_Cost_Center_ID'] = (int) $validated['tcf_cost_center_id'];
         }
 
         Log::info('AP Invoice Create Payload:', $payload);
@@ -589,7 +589,7 @@ class ApInvoiceController extends Controller
             'tcf_ad_user_approved_id' => 'nullable|integer',
             'tcf_ad_user_verification_id' => 'nullable|integer',
             'c_department_id' => 'nullable|integer',
-            'c_costcenter_id' => 'nullable|integer',
+            'tcf_cost_center_id' => 'nullable|integer',
         ]);
 
         $payload = [];
@@ -625,8 +625,8 @@ class ApInvoiceController extends Controller
             $payload['TCF_AD_User_Verification_ID'] = $validated['tcf_ad_user_verification_id'] ? (int) $validated['tcf_ad_user_verification_id'] : null;
         if (array_key_exists('c_department_id', $validated))
             $payload['C_Department_ID'] = $validated['c_department_id'] ? (int) $validated['c_department_id'] : null;
-        if (array_key_exists('c_costcenter_id', $validated))
-            $payload['C_CostCenter_ID'] = $validated['c_costcenter_id'] ? (int) $validated['c_costcenter_id'] : null;
+        if (array_key_exists('tcf_cost_center_id', $validated))
+            $payload['TCF_Cost_Center_ID'] = $validated['tcf_cost_center_id'] ? (int) $validated['tcf_cost_center_id'] : null;
 
         try {
             $response = $this->idempiereService->put("models/c_invoice/{$id}", $payload);

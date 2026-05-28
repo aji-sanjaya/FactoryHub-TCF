@@ -32,7 +32,7 @@ class DpkPettycashRequest extends Model
         'processing',
         'posted',
         'totallines',
-        'c_costcenter_id',
+        'tcf_cost_center_id',
         'created',
         'createdby',
         'updated',

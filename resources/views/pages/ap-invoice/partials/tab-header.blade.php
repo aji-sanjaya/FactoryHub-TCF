@@ -266,11 +266,11 @@
                     Cost Center
                 </label>
                 <div class="col-span-1 sm:col-span-2">
-                    <select id="c_costcenter_id" name="c_costcenter_id" {{ $isReadOnly ? 'disabled' : '' }}
+                    <select id="tcf_cost_center_id" name="tcf_cost_center_id" {{ $isReadOnly ? 'disabled' : '' }}
                         class="w-full text-sm rounded-lg border-gray-300 focus:border-brand-500 focus:ring-brand-500 dark:bg-gray-900 dark:border-gray-600 {{ $isReadOnly ? 'bg-gray-50 cursor-not-allowed' : '' }}">
                         <option value="">- Select Cost Center -</option>
                         @foreach($costCenters as $cc)
-                            <option value="{{ $cc->id }}" {{ (!$isNew && $invoice->c_costcenter_id == $cc->id) ? 'selected' : '' }}>
+                            <option value="{{ $cc->id }}" {{ (!$isNew && $invoice->tcf_cost_center_id == $cc->id) ? 'selected' : '' }}>
                                 {{ $cc->text }}
                             </option>
                         @endforeach
